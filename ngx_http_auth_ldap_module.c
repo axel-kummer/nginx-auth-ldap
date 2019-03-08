@@ -1524,11 +1524,11 @@ ngx_http_auth_ldap_read_handler(ngx_event_t *rev)
 
             // if LDAP_SERVER_DOWN (usually timeouts or server disconnects)
             if (rc == LDAP_SERVER_DOWN && \
-                c->server->max_down_retries_count < c->server->max_down_retries) { 
-                /** 
-                    update counter (this is always reset in 
-                    ngx_http_auth_ldap_connect() for a successful ldap 
-                    connection  
+                c->server->max_down_retries_count < c->server->max_down_retries) {
+                /**
+                    update counter (this is always reset in
+                    ngx_http_auth_ldap_connect() for a successful ldap
+                    connection
                 **/
                 c->server->max_down_retries_count++;
                 ngx_log_error(NGX_LOG_ERR, c->log, 0, "http_auth_ldap: LDAP_SERVER_DOWN: retry count: %d",
@@ -1538,7 +1538,7 @@ ngx_http_auth_ldap_read_handler(ngx_event_t *rev)
                 // timer call to this read handler again
                 ngx_http_auth_ldap_reconnect_handler(rev);
                 return;
-            } 
+            }
 
             return;
         }
@@ -2213,9 +2213,9 @@ ngx_http_auth_ldap_check_group(ngx_http_request_t *r, ngx_http_auth_ldap_ctx_t *
     if (ctx->server->group_attribute_dn == 1) {
         user_val = ngx_pcalloc(
             r->pool,
-            ctx->user_dn.len + 1);
-        ngx_memcpy(user_val, ctx->user_dn.data, ctx->user_dn.len);
-        user_val[ctx->user_dn.len] = '\0';
+            ctx->dn.len + 1);
+        ngx_memcpy(user_val, ctx->dn.data, ctx->dn.len);
+        user_val[ctx->dn.len] = '\0';
     } else {
         user_val = ngx_pcalloc(
             r->pool,
